@@ -22,10 +22,14 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 31
+     if (project.android.hasProperty("namespace")) {
+        namespace = "com.bluechilli.flutteruploader"
+    }
+    
+    compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
