@@ -4,11 +4,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_uploader/flutter_uploader.dart';
 import 'package:flutter_uploader_example/responses_screen.dart';
 import 'package:flutter_uploader_example/upload_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const String title = 'FileUpload Sample app';
 final Uri uploadURL = Uri.parse(
@@ -54,7 +54,7 @@ void backgroundHandler() {
               maxProgress: 100,
               channelShowBadge: false,
             ),
-            iOS: const IOSNotificationDetails(),
+            iOS: const DarwinNotificationDetails(),
           ),
         );
       });
@@ -96,7 +96,7 @@ void backgroundHandler() {
                 ? Importance.high
                 : Importance.min,
           ),
-          iOS: const IOSNotificationDetails(
+          iOS: const DarwinNotificationDetails(
             presentAlert: true,
           ),
         ),
@@ -111,7 +111,7 @@ void backgroundHandler() {
 void main() => runApp(const App());
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   _AppState createState() => _AppState();
@@ -131,7 +131,7 @@ class _AppState extends State<App> {
     var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('ic_upload');
-    var initializationSettingsIOS = IOSInitializationSettings(
+    var initializationSettingsIOS = DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: true,
@@ -142,7 +142,7 @@ class _AppState extends State<App> {
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: (payload) async {},
+      onDidReceiveNotificationResponse: (payload) async {},
     );
 
     SharedPreferences.getInstance()

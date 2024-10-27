@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_uploader/flutter_uploader.dart';
 import 'package:flutter_uploader_example/upload_item.dart';
 
@@ -12,10 +11,10 @@ class UploadItemView extends StatelessWidget {
   final CancelUploadCallback onCancel;
 
   const UploadItemView({
-    Key? key,
+    super.key,
     required this.item,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class UploadItemView extends StatelessWidget {
                 item.id,
                 style: Theme.of(context)
                     .textTheme
-                    .caption!
+                    .labelMedium!
                     .copyWith(fontFamily: 'monospace'),
               ),
               Container(
@@ -59,7 +58,7 @@ class UploadItemView extends StatelessWidget {
                     item.response!.response!,
                     style: Theme.of(context)
                         .textTheme
-                        .caption!
+                        .labelMedium!
                         .copyWith(fontFamily: 'monospace'),
                   ),
               ]
